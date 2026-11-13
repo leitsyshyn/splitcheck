@@ -1,0 +1,8 @@
+/* Paper-coloured halo so lifelines and edges never run through label text. */
+.messageText, .labelText, .loopText {
+  paint-order: stroke !important;
+  stroke: #f6f1e7 !important;
+  stroke-width: 10px !important;
+  stroke-linejoin: round !important;
+}
+circle.sequenceNumber, [id^="sequencenumber"] { fill: #e4572e !important; stroke: none; }

@@ -1,0 +1,19 @@
+sequenceDiagram
+  autonumber
+  actor H as Автор
+  participant R as Cloud Run
+  participant S as Storage
+  participant G as Gemini
+  participant F as Firestore
+  actor D as Друг
+
+  H->>R: фото чека
+  R->>S: зберегти
+  R->>G: gs:// + схема
+  G-->>R: позиції + box_2d
+  R->>F: кімната
+  D->>R: QR → тап «моє»
+  R->>F: arrayUnion
+  F-->>R: onSnapshot
+  R-->>H: SSE
+  R-->>D: SSE

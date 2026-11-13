@@ -1,0 +1,15 @@
+flowchart LR
+  phone["Браузер"]
+  subgraph gcp["Google Cloud"]
+    run["Cloud Run<br/>TanStack Start"]
+    ai["Vertex AI · Gemini"]
+    gcs[("Cloud Storage")]
+    fs[("Firestore")]
+  end
+  nbu["API НБУ"]
+
+  phone <-- "RPC · SSE" --> run
+  run -- "gs:// + JSON-схема" --> ai
+  run -- "фото" --> gcs
+  run <-- "запис · onSnapshot" --> fs
+  run -- "курс" --> nbu
