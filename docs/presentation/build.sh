@@ -14,3 +14,15 @@ done
 for fmt in --html --pdf --pptx; do
   npx -y @marp-team/marp-cli@4.5.1 slides.md --html --allow-local-files $fmt < /dev/null
 done
+
+# Marp exports slides as images; embed the real demo video into the PPTX (needs python-pptx).
+python3 - <<'PY'
+from pptx import Presentation
+prs = Presentation("slides.pptx")
+slide = prs.slides[7]
+for sh in list(slide.shapes):
+    sh._element.getparent().remove(sh._element)
+slide.shapes.add_movie("demo.mp4", 0, 0, prs.slide_width, prs.slide_height,
+                       poster_frame_image="img/demo-poster.jpg", mime_type="video/mp4")
+prs.save("slides.pptx")
+PY

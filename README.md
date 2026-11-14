@@ -10,7 +10,7 @@ PoC для лабораторної №2 з курсу «Хмарні обчис
 (тестовий чек: [`docs/sample-receipt.png`](docs/sample-receipt.png))
 
 **Презентація:** [`docs/presentation/slides.pdf`](docs/presentation/slides.pdf) ·
-[pptx](docs/presentation/slides.pptx) · Marp + Mermaid, збірка: `docs/presentation/build.sh`
+[pptx](docs/presentation/slides.pptx) · [демо-відео](docs/presentation/demo.mp4) · Marp + Mermaid, збірка: `docs/presentation/build.sh`
 
 ![Кімната на десктопі: фото чека з підсвіченими рядками та список позицій](docs/desktop.png)
 

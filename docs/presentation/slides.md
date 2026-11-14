@@ -36,6 +36,9 @@ style: |
   section.title { align-content: center !important; }
   section.title h1 { font-size: 104px; margin: 0; }
   section.title::after { display: none; }
+  section.video { padding: 0; background: url(img/demo-poster.jpg) center / cover; }
+  section.video video { display: block; width: 1280px; height: 720px; }
+  @media print { section.video video { visibility: hidden; } }
 ---
 
 <!-- _class: title -->
@@ -148,6 +151,13 @@ ai.models.generateContent({
 <img src="../room-mobile.png" />
 <img src="../summary-mobile.png" />
 </div>
+
+---
+
+<!-- _class: video -->
+<!-- _paginate: skip -->
+
+<video src="demo.mp4" poster="img/demo-poster.jpg" controls muted playsinline preload="auto"></video>
 
 ---
 
