@@ -37,7 +37,7 @@ PoC для лабораторної №2 з курсу «Хмарні обчис
 | **Cloud Firestore** | Кімнати, учасники, хто що забрав; realtime-оновлення | `@google-cloud/firestore`: `batch`, `runTransaction`, `FieldValue.arrayUnion`, `onSnapshot`; TTL-політика на `expireAt` (7 днів) |
 | **Cloud Storage** | Приватне сховище фото чеків | `@google-cloud/storage`; lifecycle-правило видаляє фото через 7 днів |
 | **Cloud Run** | Хостинг SSR-застосунку + SSE-стрім | `gcloud run deploy --source .` (Cloud Build → Artifact Registry → Cloud Run) |
-| **API НБУ** | Офіційний курс, якщо чек не в гривнях | `GET bank.gov.ua/NBUStatService/v1/statdir/exchange?valcode=EUR&json` |
+| **API НБУ** | Офіційний курс, якщо чек не в гривнях | `GET bank.gov.ua/NBU_Exchange/exchange?json` |
 
 **Автентифікація без ключів.** Усі клієнти використовують Application Default
 Credentials: на Cloud Run — окремий сервіс-акаунт `splitcheck-run` з мінімальними

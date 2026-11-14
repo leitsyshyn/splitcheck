@@ -21,7 +21,7 @@ import {
 	useLiveRoom,
 	useToggleClaim,
 } from "#/lib/room-query";
-import { computeSplit, formatMoney } from "#/lib/split";
+import { computeSplit, formatMoney, formatUah } from "#/lib/split";
 import { isRoomId, type Participant, type RoomSnapshot } from "#/lib/types";
 
 export const Route = createFileRoute("/r/$roomId")({
@@ -99,6 +99,7 @@ function OpenRoom({
 	const split = computeSplit(room.receipt, participants);
 	const myTotal = split.shares.get(me.id)?.total ?? 0;
 	const money = (minor: number) => formatMoney(minor, room.receipt.currency);
+	const uah = (minor: number) => formatUah(minor, room.uahRate);
 
 	const focusItem = (id: string) => {
 		setHighlight(id);
@@ -125,8 +126,11 @@ function OpenRoom({
 				<h1 className="font-display text-xl font-bold sm:text-3xl">
 					{room.receipt.merchant ?? "Чек"}
 				</h1>
-				<span className="money ml-auto text-muted-foreground">
+				<span className="money ml-auto text-right text-muted-foreground">
 					{money(split.grandTotal)}
+					{room.uahRate && (
+						<span className="block text-xs">{uah(split.grandTotal)}</span>
+					)}
 				</span>
 			</section>
 
@@ -181,6 +185,11 @@ function OpenRoom({
 								Ваша частка
 							</span>
 							<span className="money text-xl font-bold">{money(myTotal)}</span>
+							{room.uahRate && (
+								<span className="money ml-2 text-sm text-muted-foreground">
+									{uah(myTotal)}
+								</span>
+							)}
 						</span>
 					) : (
 						<span className="flex-1 font-semibold">Оберіть свої позиції</span>

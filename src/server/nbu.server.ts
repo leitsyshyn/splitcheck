@@ -1,7 +1,12 @@
 import { z } from "zod";
 
-const NbuRate = z.array(
-	z.object({ cc: z.string(), rate: z.number(), exchangedate: z.string() }),
+const NbuRates = z.array(
+	z.object({
+		CurrencyCodeL: z.string(),
+		Units: z.number(),
+		Amount: z.number(),
+		StartDate: z.string(),
+	}),
 );
 
 /**
@@ -14,12 +19,21 @@ export async function getUahRate(
 ): Promise<{ rate: number; date: string } | null> {
 	if (currency === "UAH") return null;
 	try {
-		const url = `https://bank.gov.ua/NBUStatService/v1/statdir/exchange?valcode=${encodeURIComponent(currency)}&json`;
-		const res = await fetch(url, { signal: AbortSignal.timeout(4000) });
-		if (!res.ok) return null;
-		const [first] = NbuRate.parse(await res.json());
-		return first ? { rate: first.rate, date: first.exchangedate } : null;
-	} catch {
+		const res = await fetch("https://bank.gov.ua/NBU_Exchange/exchange?json", {
+			signal: AbortSignal.timeout(4000),
+		});
+		if (!res.ok) {
+			console.warn("NBU rate request failed", res.status);
+			return null;
+		}
+		const found = NbuRates.parse(await res.json()).find(
+			(r) => r.CurrencyCodeL === currency,
+		);
+		return found
+			? { rate: found.Amount / found.Units, date: found.StartDate }
+			: null;
+	} catch (error) {
+		console.warn("NBU rate request failed", error);
 		return null;
 	}
 }

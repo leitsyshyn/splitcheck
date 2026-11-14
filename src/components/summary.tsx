@@ -1,7 +1,7 @@
 import { cn } from "cn";
 import { ArrowRight, Copy } from "lucide-react";
 import { toast } from "sonner";
-import { computeSplit, formatMoney } from "#/lib/split";
+import { computeSplit, formatMoney, formatUah } from "#/lib/split";
 import type { Participant, RoomSnapshot } from "#/lib/types";
 import { PersonDot } from "./person";
 
@@ -102,7 +102,7 @@ export function Summary({
 								<span className="money">{money(owed)}</span>
 								{room.uahRate && (
 									<span className="money font-normal text-muted-foreground">
-										≈ {formatMoney(Math.round(owed * room.uahRate.rate), "UAH")}
+										{formatUah(owed, room.uahRate)}
 									</span>
 								)}
 							</p>
@@ -124,6 +124,13 @@ export function Summary({
 						</button>
 					)}
 				</section>
+			)}
+
+			{room.uahRate && (
+				<p className="money text-center text-xs text-muted-foreground">
+					НБУ {room.uahRate.date}: 1 {receipt.currency} ={" "}
+					{formatMoney(Math.round(room.uahRate.rate * 100), "UAH")}
+				</p>
 			)}
 		</div>
 	);

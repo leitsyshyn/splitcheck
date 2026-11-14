@@ -83,7 +83,7 @@ style: |
 | **Firestore** | Кімнати й відмітки, realtime | `arrayUnion` · `onSnapshot` |
 | **Cloud Storage** | Фото чеків | `file.save` · `gs://` |
 | **Cloud Run** | Хостинг застосунку | `gcloud run deploy --source .` |
-| **API НБУ** | Курс валют | `GET /NBUStatService/v1/statdir/exchange` |
+| **API НБУ** | Курс валют | `GET /NBU_Exchange/exchange?json` |
 
 ---
 

@@ -123,6 +123,16 @@ export function formatMoney(minor: number, currency: string): string {
 	}
 }
 
+/** "≈ 1 234,00 грн" at the NBU rate, for receipts in a foreign currency. */
+export function formatUah(
+	minor: number,
+	uahRate: { rate: number } | null,
+): string | null {
+	return uahRate
+		? `≈ ${formatMoney(Math.round(minor * uahRate.rate), "UAH")}`
+		: null;
+}
+
 /** Receipts print dates in every format; show ISO-ish ones as dd.mm.yyyy hh:mm. */
 export function formatReceiptDate(raw: string | null): string | null {
 	if (!raw) return null;
